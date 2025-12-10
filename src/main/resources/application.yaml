@@ -6,8 +6,15 @@ spring:
       - localhost:9092
     consumer:
       group-id: ${KAFKA_CONSUMER_GROUP_ID}
-
-
+      # Configure key and value deserializers because we are consuming JSON messages and kafka default is byte array
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      # Enable trusted packages for JSON deserialization
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: 'com.apache.kafka.sample.model'
 server:
   port: 8082
 
