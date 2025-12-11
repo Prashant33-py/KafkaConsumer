@@ -21,5 +21,4 @@ server:
 kafka:
   topic:
     name: ${KAFKA_TOPIC_NAME}
-kafka:
   group-id: ${KAFKA_CONSUMER_GROUP_ID}
