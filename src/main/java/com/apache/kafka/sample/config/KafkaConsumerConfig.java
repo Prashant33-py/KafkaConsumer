@@ -21,6 +21,9 @@ public class KafkaConsumerConfig {
     @Value("${kafka.group-id}")
     private String consumerGroupId;
 
+    @Value("${kafka.another.group-id}")
+    private String anotherConsumerGroupId;
+
     public Map<String, Object> consumerConfig(){
         Map<String, Object> consumerProps = new HashMap<>();
         consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -31,8 +34,18 @@ public class KafkaConsumerConfig {
         return consumerProps;
     }
 
+    public Map<String, Object> anotherConsumerConfig(){
+        Map<String, Object> consumerProps = new HashMap<>();
+        consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, anotherConsumerGroupId);
+        consumerProps.put(JsonDeserializer.TRUSTED_PACKAGES, "com.apache.kafka.sample.model");
+        return consumerProps;
+    }
+
     public ConsumerFactory<String, Object> consumerFactory(){
-        return new DefaultKafkaConsumerFactory<>(consumerConfig());
+        return new DefaultKafkaConsumerFactory<>(anotherConsumerConfig());
     }
 
     @Bean

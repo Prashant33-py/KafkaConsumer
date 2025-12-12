@@ -22,3 +22,7 @@ kafka:
   topic:
     name: ${KAFKA_TOPIC_NAME}
   group-id: ${KAFKA_CONSUMER_GROUP_ID}
+  another:
+    topic:
+      name: ${KAFKA_ANOTHER_TOPIC_NAME}
+    group-id: ${KAFKA_ANOTHER_CONSUMER_GROUP_ID}
